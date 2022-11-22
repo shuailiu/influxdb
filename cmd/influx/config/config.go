@@ -160,9 +160,7 @@ func (s baseRW) writeConfigs(cfgs Configs) error {
 	// a list cloud 2 clusters, commented out
 	s.w.Write([]byte("# \n"))
 	cfgs = map[string]Config{
-		"us-central": {Host: "https://us-central1-1.gcp.cloud2.influxdata.com", Token: "XXX"},
-		"us-west":    {Host: "https://us-west-2-1.aws.cloud2.influxdata.com", Token: "XXX"},
-		"eu-central": {Host: "https://eu-central-1-1.aws.cloud2.influxdata.com", Token: "XXX"},
+		"cn-central": {Host: "https://xxx.com", Token: "XXX"},
 	}
 
 	if err := toml.NewEncoder(&b2).Encode(cfgs); err != nil {

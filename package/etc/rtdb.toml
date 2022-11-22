@@ -1,0 +1,38 @@
+###
+### HTTP Service bind address
+### 默认: 8086
+###
+# http-address = ""
+
+###
+### 日志级别，可选参数: debug, info, error
+### 默认: info
+###
+# log-level = ""
+
+###
+### 数据库元数据存储路径，该参数应该是路径+sysdata.dat:/path/to/metadata/sysdata.dat
+### 默认: ~/.rtdbv2/rtdb.bolt
+###
+# sysdata-path = ""
+
+###
+### 时序数据在磁盘上的存储路径，该参数只能是路径
+### 默认: ~/.rtdbv2/engine
+###
+# data-path = ""
+
+###
+### 单个write请求在fsync调用完成前的等待时间。如果 'wal-fsync-time' > 0，会对多个write请求批量执行fsync。
+### 默认值: 0s，表示会将每个write请求写入WAL再返回。该参数一般用于配置速度较慢的磁盘，对于非SSD硬盘，推荐使用0ms-100ms
+###
+# wal-fsync-time = ""
+
+###
+### 每个Shard的可用的最大缓存数（字节），如果已用缓存大于该值，则会开始拒绝写入请求。
+### 默认值: 1073741824(1G)
+###
+# cache-max-size = 1073741824
+
+
+

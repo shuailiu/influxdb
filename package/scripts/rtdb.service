@@ -1,0 +1,21 @@
+# If you modify this, please also make sure to edit init.sh
+
+[Unit]
+Description=RTDB
+Documentation=
+After=network-online.target
+
+[Service]
+User=rtdb
+Group=rtdb
+LimitNOFILE=65536
+EnvironmentFile=-/etc/default/rtdbv2
+ExecStart=/usr/lib/rtdb/scripts/rtdb-systemd-start.sh
+KillMode=control-group
+Restart=on-failure
+Type=forking
+PIDFile=/var/lib/rtdb/rtdb.pid
+
+[Install]
+WantedBy=multi-user.target
+Alias=rtdb.service

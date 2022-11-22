@@ -1,0 +1,3 @@
+char version[64] = "2.0.6";
+char gitinfo[128] = "245c31cdfc2ceeba00711ced67bdcdbc16642ad7";
+char buildinfo[512] = "Built by root at 2022-11-22 15:00";

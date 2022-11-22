@@ -1,0 +1,10 @@
+Package: rtdb
+Version: 6.0.8
+Section: utils
+Architecture: amd64
+Installed-Size: 66666
+Maintainer: rtdb
+Provides: RTDB-Team
+Homepage:
+Description: Real-time Database
+
