@@ -55,7 +55,7 @@ func onboardingRequest(ui *input.UI, options *options) (*influxdb.OnboardingRequ
 		return req, nil
 	}
 
-	fmt.Fprintln(ui.Writer, string(internal.PromptWithColor("Welcome to InfluxDB 2.0!", internal.ColorYellow)))
+	fmt.Fprintln(ui.Writer, string(internal.PromptWithColor("Welcome to RTDB 2.0!", internal.ColorYellow)))
 	if req.User == "" {
 		req.User = internal.GetInput(ui, "Please type your primary username", "")
 	}

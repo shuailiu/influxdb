@@ -30,7 +30,7 @@ func InfluxDir() (string, error) {
 		}
 		dir = wd
 	}
-	dir = filepath.Join(dir, ".influxdbv2")
+	dir = filepath.Join(dir, ".rtdbv2")
 
 	return dir, nil
 }

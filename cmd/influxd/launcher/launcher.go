@@ -223,7 +223,7 @@ func (m *Launcher) run(ctx context.Context, opts *InfluxdOpts) (err error) {
 	m.doneChan = ctx.Done()
 
 	info := platform.GetBuildInfo()
-	m.log.Info("Welcome to InfluxDB",
+	m.log.Info("Welcome to RTDB",
 		zap.String("version", info.Version),
 		zap.String("commit", info.Commit),
 		zap.String("build_date", info.Date),
@@ -525,7 +525,7 @@ func (m *Launcher) run(ctx context.Context, opts *InfluxdOpts) (err error) {
 		DBRP:       dbrpSvc,
 	}
 
-	m.log.Info("Configuring InfluxQL statement executor (zeros indicate unlimited).",
+	m.log.Info("Configuring RTDBQL statement executor (zeros indicate unlimited).",
 		zap.Int("max_select_point", opts.CoordinatorConfig.MaxSelectPointN),
 		zap.Int("max_select_series", opts.CoordinatorConfig.MaxSelectSeriesN),
 		zap.Int("max_select_buckets", opts.CoordinatorConfig.MaxSelectBucketsN))
@@ -1063,7 +1063,7 @@ func checkForPriorVersion(ctx context.Context, log *zap.Logger, boltPath string,
 
 	// if there are no buckets, we will be fine
 	if len(buckets) > 0 {
-		log.Info("Checking InfluxDB metadata for prior version.", zap.String("bolt_path", boltPath))
+		log.Info("Checking RTDB metadata for prior version.", zap.String("bolt_path", boltPath))
 
 		for i := range buckets {
 			bucket := buckets[i]

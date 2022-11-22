@@ -77,8 +77,8 @@ PRECANNED := $(shell find chronograf/canned -name '*.json')
 
 # List of binary cmds to build
 CMDS := \
-	bin/$(GOOS)/influx \
-	bin/$(GOOS)/influxd
+	bin/$(GOOS)/rtdb-cli \
+	bin/$(GOOS)/rtdb
 
 all: $(SUBDIRS) generate $(CMDS)
 
@@ -90,16 +90,16 @@ $(SUBDIRS):
 #
 # Define targets for commands
 #
-bin/$(GOOS)/influxd: $(SOURCES)
-	$(GO_BUILD) -o $@ ./cmd/$(shell basename "$@")
+bin/$(GOOS)/rtdb: $(SOURCES)
+	$(GO_BUILD) -o $@ ./cmd/influxd
 
-bin/$(GOOS)/influx: $(SOURCES)
-	$(GO_BUILD_SM) -o $@ ./cmd/$(shell basename "$@")
+bin/$(GOOS)/rtdb-cli: $(SOURCES)
+	$(GO_BUILD_SM) -o $@ ./cmd/influx
 
 # Ease of use build for just the go binary
-influxd: bin/$(GOOS)/influxd
+rtdb: bin/$(GOOS)/rtdb
 
-influx: bin/$(GOOS)/influx
+rtdb-cli: bin/$(GOOS)/rtdb-cli
 
 #
 # Define targets for the web ui
@@ -203,10 +203,10 @@ chronogiraffe: $(SUBDIRS) generate $(CMDS)
 	@echo "$$CHRONOGIRAFFE"
 
 run: chronogiraffe
-	./bin/$(GOOS)/influxd --assets-path=ui/build
+	./bin/$(GOOS)/rtdb --assets-path=ui/build
 
 run-e2e: chronogiraffe
-	./bin/$(GOOS)/influxd --assets-path=ui/build --e2e-testing --store=memory
+	./bin/$(GOOS)/rtdb --assets-path=ui/build --e2e-testing --store=memory
 
 # generate feature flags
 flags:
@@ -219,13 +219,13 @@ docker-image-influx:
 docker-image-ui:
 	@cp .gitignore .dockerignore
 	@docker image build -t influxui:dev --target ui .
-	
+
 dshell-image:
 	@cp .gitignore .dockerignore
 	@docker image build --build-arg "USERID=$(shell id -u)" -t influxdb:dshell --target dshell .
 
 dshell: dshell-image
-	@docker container run --rm -p 8086:8086 -p 8080:8080 -u $(shell id -u) -it -v $(shell pwd):/code -w /code influxdb:dshell 
+	@docker container run --rm -p 8086:8086 -p 8080:8080 -u $(shell id -u) -it -v $(shell pwd):/code -w /code influxdb:dshell
 
 # .PHONY targets represent actions that do not create an actual file.
-.PHONY: all $(SUBDIRS) run fmt checkfmt tidy checktidy checkgenerate test test-go test-js test-go-race test-tls bench clean node_modules vet nightly chronogiraffe dist ping protoc e2e run-e2e influxd libflux flags dshell dclean docker-image-flux docker-image-influx pkg-config
+.PHONY: all $(SUBDIRS) run fmt checkfmt tidy checktidy checkgenerate test test-go test-js test-go-race test-tls bench clean node_modules vet nightly chronogiraffe dist ping protoc e2e run-e2e rtdb libflux flags dshell dclean docker-image-flux docker-image-influx pkg-config
